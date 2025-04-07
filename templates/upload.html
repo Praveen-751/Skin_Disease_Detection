@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type=file], select, button {
+            margin-top: 10px;
+        }
+        #imagePreview {
+            margin-top: 20px;
+            max-width: 100%;
+            height: 20rem;
+            width: 20rem;
+        }
+    </style>
+</head>
+<body>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <h2>Upload an Image for Prediction</h2>
+        <select name="method">
+            <option value="SVM">SVM Prediction</option>
+            <option value="Template Matching">Template Matching Prediction</option>
+        </select><br>
+        <input type="file" name="image" accept="image/png, image/jpeg" required onchange="previewFile()"><br>
+        <img id="imagePreview" src="" alt="Image preview...">
+        <button type="submit">Upload and Predict</button>
+    </form>
+    <script>
+        function previewFile() {
+            const preview = document.getElementById('imagePreview');
+            const file = document.querySelector('input[type=file]').files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                // Convert image file to base64 string and display it
+                preview.src = reader.result;
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>
